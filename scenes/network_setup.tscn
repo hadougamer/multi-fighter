@@ -1,0 +1,131 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://fonts/Base_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/network_setup.gd" type="Script" id=2]
+[ext_resource path="res://sprites/bg_ui.jpg" type="Texture" id=3]
+[ext_resource path="res://scenes/title.tscn" type="PackedScene" id=4]
+[ext_resource path="res://fonts/main_font.tres" type="DynamicFont" id=5]
+
+[node name="Network_setup" type="Node2D"]
+position = Vector2( 504, 328 )
+script = ExtResource( 2 )
+
+[node name="Form" type="Control" parent="."]
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="Sprite" parent="Form"]
+texture = ExtResource( 3 )
+
+[node name="Fields" type="Node2D" parent="Form"]
+z_index = 1
+
+[node name="Create_server" type="Button" parent="Form/Fields"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = 86.0
+margin_right = 200.0
+margin_bottom = 186.0
+rect_pivot_offset = Vector2( 464, 210 )
+custom_fonts/font = ExtResource( 5 )
+text = "Create Server"
+
+[node name="Join_server" type="Button" parent="Form/Fields"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = 233.0
+margin_right = 200.0
+margin_bottom = 333.0
+custom_fonts/font = ExtResource( 5 )
+text = "Join Server"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IP" type="LineEdit" parent="Form/Fields"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -509.0
+margin_top = 380.5
+margin_right = 521.0
+margin_bottom = 439.5
+custom_fonts/font = ExtResource( 5 )
+align = 1
+
+[node name="Nickname" type="LineEdit" parent="Form/Fields"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -265.5
+margin_top = -47.5
+margin_right = 265.5
+margin_bottom = 49.5
+custom_fonts/font = ExtResource( 5 )
+align = 1
+placeholder_text = "Enter your Nickname"
+
+[node name="GameTitle" parent="Form" instance=ExtResource( 4 )]
+position = Vector2( -328, -336 )
+scale = Vector2( 0.65, 0.65 )
+
+[node name="Wait" type="Control" parent="."]
+visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BG" type="Sprite" parent="Wait"]
+texture = ExtResource( 3 )
+
+[node name="Fields" type="Node2D" parent="Wait"]
+z_index = 1
+
+[node name="SERV_IP" type="Label" parent="Wait/Fields"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -509.0
+margin_top = 380.5
+margin_right = 521.0
+margin_bottom = 439.5
+custom_fonts/font = ExtResource( 1 )
+text = "192.168.0.1"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WAITING" type="Label" parent="Wait/Fields"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -509.0
+margin_top = 96.0
+margin_right = 521.0
+margin_bottom = 168.0
+custom_fonts/font = ExtResource( 1 )
+text = "WAITING FOR PLAYERS..."
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GameTitle" parent="Wait" instance=ExtResource( 4 )]
+position = Vector2( -328, -336 )
+scale = Vector2( 0.65, 0.65 )
+
+[connection signal="pressed" from="Form/Fields/Create_server" to="." method="_on_Create_server_pressed"]
+[connection signal="pressed" from="Form/Fields/Join_server" to="." method="_on_Join_server_pressed"]
+[connection signal="text_changed" from="Form/Fields/Nickname" to="." method="_on_Nickname_text_changed"]

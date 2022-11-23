@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/ground.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/stage.gd" type="Script" id=2]
+
+[node name="Stage" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="ground" parent="." instance=ExtResource( 1 )]
+position = Vector2( -5, 0 )
+
+[node name="fighterPos" type="Position2D" parent="."]
+position = Vector2( 178, 592 )
+
+[node name="cam" type="Camera2D" parent="."]
+current = true
+limit_bottom = 768

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://fonts/title_font.tres" type="DynamicFont" id=1]
+
+[node name="GameTitle" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+margin_left = 5.0
+margin_top = 326.0
+margin_right = 1029.0
+margin_bottom = 402.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Multifighter"
+align = 1
