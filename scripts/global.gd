@@ -1,8 +1,9 @@
 extends Node
 
 # Visual Elements
-var pre_ui 				= preload("res://scenes/game_ui.tscn")
+var pre_ui 			= preload("res://scenes/game_ui.tscn")
 var pre_nw_setup 	= preload("res://scenes/network_setup.tscn")
+var pre_fireball 	= preload("res://scenes/fireball.tscn")
 
 # Global Inititial Settings
 var form_setup 		= null

@@ -9,9 +9,7 @@ script = ExtResource( 2 )
 [node name="ground" parent="." instance=ExtResource( 1 )]
 position = Vector2( -5, 0 )
 
-[node name="fighterPos" type="Position2D" parent="."]
-position = Vector2( 178, 592 )
-
 [node name="cam" type="Camera2D" parent="."]
+position = Vector2( 512, 384 )
 current = true
 limit_bottom = 768
