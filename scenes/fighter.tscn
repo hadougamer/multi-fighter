@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/fighter.gd" type="Script" id=1]
 [ext_resource path="res://sprites/generic-char.png" type="Texture" id=2]
+[ext_resource path="res://scenes/lifebar.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 12.5, 23.5 )
@@ -41,6 +42,9 @@ animations = [ {
 
 [node name="fighter" type="KinematicBody2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ -35.0, 35.0 ]
+}
 
 [node name="collider" type="CollisionShape2D" parent="."]
 position = Vector2( 1.5, 1.5 )
@@ -51,13 +55,10 @@ __meta__ = {
 
 [node name="label" type="Label" parent="."]
 margin_left = -35.0
-margin_top = -53.0
+margin_top = -61.0
 margin_right = 35.0
-margin_bottom = -39.0
+margin_bottom = -47.0
 align = 1
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 7 )
@@ -66,3 +67,5 @@ playing = true
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="lifebar" parent="." instance=ExtResource( 3 )]

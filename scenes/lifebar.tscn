@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/lifebar.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.254902, 0.701961, 0.203922, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.419608, 0, 0, 1 )
+border_blend = true
+
+[node name="lifebar" type="ProgressBar"]
+margin_left = -35.0
+margin_top = -43.0
+margin_right = 35.0
+margin_bottom = -29.0
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+step = 0.5
+script = ExtResource( 1 )

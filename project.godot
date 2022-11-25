@@ -23,8 +23,8 @@ Network="*res://scripts/network.gd"
 [display]
 
 window/size/height=768
-window/size/test_width=683
-window/size/test_height=512
+window/size/test_width=853
+window/size/test_height=640
 window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
