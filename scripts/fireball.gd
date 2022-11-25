@@ -20,6 +20,7 @@ func _on_notifier_screen_exited():
 
 func _bullet_hitted( player ):
 	print("Bullet hitted player {name}".format({"name":player.name}))
+	player.life -= 5
 	queue_free()
 
 func _on_hit_area_body_entered(body):

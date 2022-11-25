@@ -15,6 +15,9 @@ var debug     = false
 puppet var p_animation = animation
 puppet var p_flip 		 = flip
 puppet var p_position  = Vector2(100, 100)
+puppet var p_life = 100
+
+var life=100
 
 func _ready():
 	print(
@@ -28,6 +31,7 @@ func _ready():
 
 func _physics_process(delta):
 	$label.text = fighter_name
+	$lifebar.set_value(life)
 
 	# Controls the Main Player on his own screen
 	if is_network_master() or debug:
@@ -64,13 +68,15 @@ func _physics_process(delta):
 		# Set the remote (puppet) variables
 		rset("p_animation", animation)
 		rset("p_flip", flip)
-		rset_unreliable("p_position", self.global_position)		
+		rset_unreliable("p_position", self.global_position)
+		rset_unreliable("p_life", life)
 	else:
 		# Controls the Main Player on other screens
 		$sprite.play(p_animation)
 		$sprite.flip_h = p_flip
+		$lifebar.set_value(p_life)
 		self.global_position = p_position
-		
+
 # Fighter Label Name
 func set_fighter_name( name ):
 	self.fighter_name = str(name)
@@ -78,7 +84,7 @@ func set_fighter_name( name ):
 # Object Name (id on the network)
 func set_name( name ):
 	self.name = str(name)
-
+	
 # trigger the shot
 sync func shot():
 	var b_group = "bullets-{name}".format({"name":name})
