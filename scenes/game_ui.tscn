@@ -86,13 +86,14 @@ text = "stage
 "
 scroll_active = false
 
-[node name="life_label" type="RichTextLabel" parent="control"]
+[node name="players_label" type="RichTextLabel" parent="control"]
 margin_left = 643.0
 margin_top = 52.0
 margin_right = 819.0
 margin_bottom = 79.0
 custom_fonts/normal_font = ExtResource( 2 )
-text = "lifes"
+text = "Players
+"
 scroll_active = false
 
 [node name="time_label" type="RichTextLabel" parent="control"]
@@ -136,7 +137,7 @@ custom_fonts/font = ExtResource( 3 )
 text = "1-1"
 align = 2
 
-[node name="life_counter" type="Label" parent="control"]
+[node name="players_counter" type="Label" parent="control"]
 margin_left = 782.0
 margin_top = 51.0
 margin_right = 898.0

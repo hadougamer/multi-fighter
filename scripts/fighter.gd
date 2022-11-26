@@ -9,6 +9,7 @@ const JUMP_HEIGHT = 65
 var motion    = Vector2()
 var animation = "idle"
 var flip 	  = false
+var life	  = 100
 var debug     = false
 
 # Remote/Puppet variables
@@ -16,10 +17,6 @@ puppet var p_animation = animation
 puppet var p_flip 		 = flip
 puppet var p_position  = Vector2(100, 100)
 puppet var p_life = 100
-puppet var p_shooting = false
-
-var life=100
-var my_hits=0 #num of bullet hitted me
 
 func _ready():
 	print(
@@ -35,14 +32,6 @@ func _physics_process(delta):
 	$label.text = fighter_name
 	$lifebar.set_value(life)
 	
-	print("-------------------------")
-	print(
-		"{name} hitted {hits} times (Life: {life}).".format(
-			{"name":name, "hits": my_hits, "life": life}
-		)
-	)
-	print("-------------------------")
-
 	var gravity = (GRAVITY*delta*500)
 	var speed   = (SPEED*delta*500)
 	var jump_h  = (JUMP_HEIGHT*delta*500)
@@ -88,8 +77,9 @@ func _physics_process(delta):
 			$lifebar.set_value(p_life)
 			self.global_position = p_position
 	else:
-		# I am a ghost now
+		# I am a ghost now		
 		ghosting(speed)
+		Network.kill(name)
 		
 # Fighter Label Name
 func set_fighter_name( name ):
@@ -105,15 +95,7 @@ remote func r_shot():
 
 # fighter was hitted
 func hitted(damage):
-	"""
-	if life == 0:
-		Network.players_info.erase(str(name))
-		queue_free()
-		return
-	"""
-		
 	life -= damage
-	my_hits += 1
 
 # Fighter turned a ghost
 func ghosting(speed):

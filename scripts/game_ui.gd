@@ -6,7 +6,9 @@ var _min_str=null
 func _process(delta):
 	if Global.stage_name:
 		$"control/stage_name".text = Global.stage_name
-
+	
+	$"control/players_counter".text = str(Network.get_live_players_count())
+	
 	# Clock
 	var _min = 0
 	var _sec = 0
