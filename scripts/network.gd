@@ -43,7 +43,8 @@ func create_server( nickname ):
 
 	local_info = {
 		"name": nickname, 
-		"type": "server", 
+		"type": "server",
+		"alive": true, 
 		"position":Vector2(Global.get_randint(180, 480), 590)
 	}
 
@@ -61,9 +62,22 @@ func join_server( nickname, ip):
 
 	local_info = {
 		"name": nickname, 
-		"type": "client", 
+		"type": "client",
+		"alive": true,
 		"position":Vector2(Global.get_randint(180, 480), 590)
 	}
+
+# Live (not dead) players
+func get_live_players_count():
+	var res = 1 # Starts with 1 (me)
+	for i in players_info:
+		if players_info[i]["alive"]:
+			res += 1
+			
+	return res
+
+func kill( player_id ):
+	players_info[int(player_id)]["alive"] = false
 
 # Loads the level
 func load_level(num):
