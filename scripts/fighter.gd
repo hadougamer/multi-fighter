@@ -16,8 +16,10 @@ puppet var p_animation = animation
 puppet var p_flip 		 = flip
 puppet var p_position  = Vector2(100, 100)
 puppet var p_life = 100
+puppet var p_shooting = false
 
 var life=100
+var my_hits=0 #num of bullet hitted me
 
 func _ready():
 	print(
@@ -32,51 +34,63 @@ func _ready():
 func _physics_process(delta):
 	$label.text = fighter_name
 	$lifebar.set_value(life)
+	
+	print("-------------------------")
+	print(
+		"{name} hitted {hits} times (Life: {life}).".format(
+			{"name":name, "hits": my_hits, "life": life}
+		)
+	)
+	print("-------------------------")
 
-	# Controls the Main Player on his own screen
-	if is_network_master() or debug:
-		var gravity = (GRAVITY*delta*500)
-		var speed   = (SPEED*delta*500)
-		var jump_h  = (JUMP_HEIGHT*delta*500)
-		
-		motion.y += gravity
-		if Input.is_action_pressed("ui_right"):
-			motion.x = speed
-			animation = "walk"
-			flip = false
-		elif Input.is_action_pressed("ui_left"):
-			motion.x = -speed
-			animation = "walk"
-			flip = true
+	var gravity = (GRAVITY*delta*500)
+	var speed   = (SPEED*delta*500)
+	var jump_h  = (JUMP_HEIGHT*delta*500)
+			
+	if life > 0:
+		# Controls the Main Player on his own screen	
+		if is_network_master() or debug:
+			motion.y += gravity
+			if Input.is_action_pressed("ui_right"):
+				motion.x = speed
+				animation = "walk"
+				flip = false
+			elif Input.is_action_pressed("ui_left"):
+				motion.x = -speed
+				animation = "walk"
+				flip = true
+			else:
+				motion.x = 0
+				animation = "idle"
+
+			if Input.is_action_just_pressed("ui_shot"):			
+				shot()
+				rpc('r_shot')
+				
+			$sprite.play(animation)
+			$sprite.flip_h=flip
+				
+			if is_on_floor():
+				if Input.is_action_pressed("ui_jump"):
+					motion.y -= jump_h
+				
+			motion = move_and_slide(motion, UP)
+
+			# Set the remote (puppet) variables
+			rset("p_animation", animation)
+			rset("p_flip", flip)
+			rset_unreliable("p_position", self.global_position)
+			rset_unreliable("p_life", life)
 		else:
-			motion.x = 0
-			animation = "idle"
-
-		if Input.is_action_just_pressed("ui_shot"):
-			rpc("shot")
-			shot()
-
-		$sprite.play(animation)
-		$sprite.flip_h=flip
-			
-		if is_on_floor():
-			if Input.is_action_pressed("ui_jump"):
-				motion.y -= jump_h
-			
-		motion = move_and_slide(motion, UP)
-
-		# Set the remote (puppet) variables
-		rset("p_animation", animation)
-		rset("p_flip", flip)
-		rset_unreliable("p_position", self.global_position)
-		rset_unreliable("p_life", life)
+			# Controls the Main Player on other screens
+			$sprite.play(p_animation)
+			$sprite.flip_h = p_flip
+			$lifebar.set_value(p_life)
+			self.global_position = p_position
 	else:
-		# Controls the Main Player on other screens
-		$sprite.play(p_animation)
-		$sprite.flip_h = p_flip
-		$lifebar.set_value(p_life)
-		self.global_position = p_position
-
+		# I am a ghost now
+		ghosting(speed)
+		
 # Fighter Label Name
 func set_fighter_name( name ):
 	self.fighter_name = str(name)
@@ -84,9 +98,62 @@ func set_fighter_name( name ):
 # Object Name (id on the network)
 func set_name( name ):
 	self.name = str(name)
-	
+
+# trigger the shot on puppet
+remote func r_shot():
+	shot()
+
+# fighter was hitted
+func hitted(damage):
+	"""
+	if life == 0:
+		Network.players_info.erase(str(name))
+		queue_free()
+		return
+	"""
+		
+	life -= damage
+	my_hits += 1
+
+# Fighter turned a ghost
+func ghosting(speed):
+	# Visibility
+	$lifebar.modulate.a8=0	
+	$label.modulate.a8=0
+	if is_network_master():
+		$sprite.modulate.a8=50
+	else:
+		$sprite.modulate.a8=0
+
+	# Collision
+	$collider.disabled=true
+
+	# Movement
+	if Input.is_action_pressed("ui_right"):
+		motion.x = speed
+		animation = "walk"
+		flip = false
+	elif Input.is_action_pressed("ui_left"):
+		motion.x = -speed
+		animation = "walk"
+		flip = true
+	elif Input.is_action_pressed("ui_up"):
+		motion.y = -speed
+		animation = "walk"
+	elif Input.is_action_pressed("ui_down"):
+		motion.y = +speed
+		animation = "walk"
+	else:
+		motion.x = 0
+		motion.y = 0
+		animation = "idle"
+
+	$sprite.play(animation)
+	$sprite.flip_h=flip
+	motion = move_and_slide(motion, UP)
+
 # trigger the shot
-sync func shot():
+func shot():
 	var b_group = "bullets-{name}".format({"name":name})
 	# Limits the max amount of bullets
 	if get_tree().get_nodes_in_group(b_group).size() < 20:

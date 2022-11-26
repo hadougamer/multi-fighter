@@ -25,8 +25,8 @@ func _ready():
 	network 	 = NetworkedMultiplayerENet.new()
 	
 	# Signals and callbacks callings
-	get_tree().connect('connected_to_server', 			self, '_server_connected')
-	get_tree().connect('network_peer_connected', 		self, '_player_connected')
+	get_tree().connect('connected_to_server', 		self, '_server_connected')
+	get_tree().connect('network_peer_connected', 	self, '_player_connected')
 	get_tree().connect('network_peer_disconnected', self, '_player_disconnected')
 
 # Creates a Server
@@ -86,6 +86,10 @@ func load_fighter( player_id, player_data ):
 		return fighter
 	
 	return false
+
+func local_player_is_alive():
+	var player_ref = weakref(local_player)
+	return player_ref.get_ref()
 
 func load_game_env():
 	load_level(0)

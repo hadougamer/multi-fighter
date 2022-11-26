@@ -17,7 +17,7 @@ func has_fighter( name ):
 	return false
 
 func _process(_delta):
-	if Network.local_player:
+	if Network.local_player_is_alive():
 		# Camera position
 		$cam.position = Network.local_player.position
 
