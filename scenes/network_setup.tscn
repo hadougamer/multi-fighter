@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://fonts/Base_font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://fonts/score_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scripts/network_setup.gd" type="Script" id=2]
 [ext_resource path="res://sprites/bg_ui.jpg" type="Texture" id=3]
 [ext_resource path="res://scenes/title.tscn" type="PackedScene" id=4]
@@ -99,12 +99,9 @@ margin_left = -509.0
 margin_top = 380.5
 margin_right = 521.0
 margin_bottom = 439.5
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = ExtResource( 5 )
 text = "192.168.0.1"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="WAITING" type="Label" parent="Wait/Fields"]
 anchor_left = 0.5
@@ -116,11 +113,9 @@ margin_top = 96.0
 margin_right = 521.0
 margin_bottom = 168.0
 custom_fonts/font = ExtResource( 1 )
-text = "WAITING FOR PLAYERS..."
+text = "WAITING FOR PLAYERS
+Online {online} of {min}"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="GameTitle" parent="Wait" instance=ExtResource( 4 )]
 position = Vector2( -328, -336 )

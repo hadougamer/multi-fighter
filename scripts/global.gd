@@ -6,6 +6,7 @@ var pre_nw_setup 	= preload("res://scenes/network_setup.tscn")
 var pre_fireball 	= preload("res://scenes/fireball.tscn")
 
 # Global Inititial Settings
+var min_num_players = 2
 var form_setup 		= null
 var stage_name 		= null
 var cur_context 	= null
@@ -24,7 +25,7 @@ func _ready():
 	print( "# Global settings loaded ... #" )
 	ip_address = get_ip_address()
 
-# Loads a stage 
+# Loads a stage
 func load_stage(context, num):
 	var stage_loaded = get_tree().get_nodes_in_group("stage")
 	cur_context = context

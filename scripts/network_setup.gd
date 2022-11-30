@@ -13,6 +13,13 @@ func _ready():
 	# Save global var with this form
 	Global.form_setup = self
 
+func _process(_delta):
+	# Dynamic players label
+	$Wait/Fields/WAITING.text = $Wait/Fields/WAITING.text.format({
+		"online": Network.get_online_players(),
+		"min": Global.min_num_players
+	})
+
 # Input the nickname
 func _on_Nickname_text_changed( new_nickname ):
 	_nickname = new_nickname

@@ -47,6 +47,9 @@ func create_server( nickname ):
 		"alive": true, 
 		"position":Vector2(Global.get_randint(180, 480), 590)
 	}
+	
+	Global.form_setup.form_hide()
+	Global.form_setup.wait_show()
 
 # Joins the Server
 func join_server( nickname, ip):
@@ -67,6 +70,10 @@ func join_server( nickname, ip):
 		"position":Vector2(Global.get_randint(180, 480), 590)
 	}
 
+# Online players
+func get_online_players():
+	return (players_info.size() + 1)
+	
 # Live (not dead) players
 func get_live_players_count():
 	var res = 1 # Starts with 1 (me)
@@ -130,10 +137,17 @@ remote func register_player(info):
 	var id = get_tree().get_rpc_sender_id()
 	print("[Network] Registering player {id}". format({"id":id}))
 	players_info[id] = info
-
-	# Load the env (Stage, UI, etc..)
-	load_game_env()
-
+	
+	print("players_count {pc}".format({"pc": get_online_players()}))
+		
+	if get_online_players() < Global.min_num_players:
+		# Wait for reach the min player count
+		Global.form_setup.form_hide()
+		Global.form_setup.wait_show()
+	else:
+		# Load the env (Stage, UI, etc..)
+		load_game_env()
+	
 	# Loads the local player
 	var local_id = get_tree().get_network_unique_id()
 	var my_player = load_fighter( local_id, local_info )
