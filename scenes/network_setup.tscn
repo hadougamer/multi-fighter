@@ -1,19 +1,17 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://fonts/Base_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://scripts/network_setup.gd" type="Script" id=2]
 [ext_resource path="res://sprites/bg_ui.jpg" type="Texture" id=3]
 [ext_resource path="res://scenes/title.tscn" type="PackedScene" id=4]
 [ext_resource path="res://fonts/main_font.tres" type="DynamicFont" id=5]
+[ext_resource path="res://avatars/dwight.png" type="Texture" id=6]
 
 [node name="Network_setup" type="Node2D"]
 position = Vector2( 504, 328 )
 script = ExtResource( 2 )
 
 [node name="Form" type="Control" parent="."]
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BG" type="Sprite" parent="Form"]
 texture = ExtResource( 3 )
@@ -26,28 +24,25 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -200.0
-margin_top = 86.0
-margin_right = 200.0
-margin_bottom = 186.0
+margin_left = -265.0
+margin_top = 238.0
+margin_right = -65.0
+margin_bottom = 318.0
 rect_pivot_offset = Vector2( 464, 210 )
 custom_fonts/font = ExtResource( 5 )
-text = "Create Server"
+text = "Create"
 
 [node name="Join_server" type="Button" parent="Form/Fields"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -200.0
-margin_top = 233.0
-margin_right = 200.0
-margin_bottom = 333.0
+margin_left = 64.0
+margin_top = 238.0
+margin_right = 264.0
+margin_bottom = 318.0
 custom_fonts/font = ExtResource( 5 )
-text = "Join Server"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+text = "Join"
 
 [node name="IP" type="LineEdit" parent="Form/Fields"]
 anchor_left = 0.5
@@ -67,16 +62,21 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -265.5
-margin_top = -47.5
+margin_top = 112.5
 margin_right = 265.5
-margin_bottom = 49.5
+margin_bottom = 209.5
 custom_fonts/font = ExtResource( 5 )
 align = 1
 placeholder_text = "Enter your Nickname"
 
 [node name="GameTitle" parent="Form" instance=ExtResource( 4 )]
-position = Vector2( -328, -336 )
+position = Vector2( -328, -402 )
 scale = Vector2( 0.65, 0.65 )
+
+[node name="avatar_sprite" type="Sprite" parent="Form"]
+position = Vector2( 0, -7 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 6 )
 
 [node name="Wait" type="Control" parent="."]
 visible = false
