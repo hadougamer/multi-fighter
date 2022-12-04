@@ -10,6 +10,13 @@ func _ready():
 	$Form/Fields/IP.text = Network.ip_address
 	_ip = $Form/Fields/IP.text
 
+	if Global.player_data:
+		$Form/Fields/Nickname.text = Global.player_data.name
+		_nickname = Global.player_data.name
+		$Form/avatar_sprite.texture = load(
+			"res://avatars/{avt}".format({"avt": Global.player_data.avatar})
+		)
+
 	# Save global var with this form
 	Global.form_setup = self
 

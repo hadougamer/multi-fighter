@@ -1,0 +1,75 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/player_select_choices.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/player_select.gd" type="Script" id=2]
+[ext_resource path="res://fonts/main_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://sprites/bg_ui.jpg" type="Texture" id=4]
+[ext_resource path="res://scenes/title.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 81, 96.5 )
+
+[node name="player_select" type="Node2D"]
+position = Vector2( 504, 328 )
+script = ExtResource( 2 )
+
+[node name="Form" type="Control" parent="."]
+
+[node name="BG" type="Sprite" parent="Form"]
+texture = ExtResource( 4 )
+
+[node name="GameTitle" parent="Form" instance=ExtResource( 5 )]
+position = Vector2( -328, -336 )
+scale = Vector2( 0.65, 0.65 )
+
+[node name="player_select_choices" parent="Form" instance=ExtResource( 1 )]
+position = Vector2( -482, 0 )
+z_index = 2
+
+[node name="PlayerName" type="Label" parent="Form"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -176.5
+margin_top = 228.5
+margin_right = 176.5
+margin_bottom = 251.5
+custom_fonts/font = ExtResource( 3 )
+align = 1
+valign = 1
+
+[node name="select_player_btn" type="Button" parent="Form"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = 297.0
+margin_right = 200.0
+margin_bottom = 397.0
+custom_fonts/font = ExtResource( 3 )
+text = "Select Player"
+
+[node name="frame_select" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -92.0
+margin_top = -1.0
+margin_right = 88.0
+margin_bottom = 209.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="selected_area" type="Area2D" parent="frame_select"]
+
+[node name="selected_area_shape" type="CollisionShape2D" parent="frame_select/selected_area"]
+position = Vector2( 89, 105.5 )
+shape = SubResource( 1 )
+
+[connection signal="pressed" from="Form/select_player_btn" to="." method="_on_select_player_btn_pressed"]
+[connection signal="body_entered" from="frame_select/selected_area" to="." method="_on_selected_area_body_entered"]

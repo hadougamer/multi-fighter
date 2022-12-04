@@ -1,11 +1,13 @@
 extends Node
 
 # Visual Elements
-var pre_ui 			= preload("res://scenes/game_ui.tscn")
-var pre_nw_setup 	= preload("res://scenes/network_setup.tscn")
-var pre_fireball 	= preload("res://scenes/fireball.tscn")
+var pre_ui 			  = preload("res://scenes/game_ui.tscn")
+var pre_nw_setup 	  = preload("res://scenes/network_setup.tscn")
+var pre_player_select = preload("res://scenes/player_select.tscn")
+var pre_fireball 	  = preload("res://scenes/fireball.tscn")
 
 # Global Inititial Settings
+var player_data		= null
 var form_setup 		= null
 var stage_name 		= null
 var cur_context 	= null
@@ -47,6 +49,11 @@ func load_nw_setup_form( context ):
 	nw_setup.add_to_group("stage")
 	context.add_child( nw_setup )
 
+# Loads the player select screen
+func load_player_select_screen( context ):
+	var player_select = pre_player_select.instance()
+	context.add_child( player_select )
+
 # Loads the User Interface
 func load_ui(context):
 	var ui_ref = weakref(ui);
@@ -75,3 +82,14 @@ func get_randint(start:int, end:int):
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	return rng.randi_range(start, end)
+	
+# Loads the player list to select
+func load_players():
+	var file = File.new()		
+	file.open("res://data/player_select.json", File.READ)
+	var data = parse_json(file.get_as_text())
+	
+	return data
+
+func select_player(data):
+	player_data = data
