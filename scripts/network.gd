@@ -45,6 +45,7 @@ func create_server( nickname ):
 		"name": nickname, 
 		"type": "server",
 		"alive": true, 
+		"spritesheet": Global.player_data.spritesheet,
 		"position":Vector2(Global.get_randint(180, 480), 590)
 	}
 
@@ -64,6 +65,7 @@ func join_server( nickname, ip):
 		"name": nickname, 
 		"type": "client",
 		"alive": true,
+		"spritesheet": Global.player_data.spritesheet,
 		"position":Vector2(Global.get_randint(180, 480), 590)
 	}
 
@@ -125,7 +127,10 @@ func _player_disconnected( id ):
 
 
 ### REMOTES
-remote func register_player(info):
+remote func register_player(info):	
+	print("register_player")
+	print(info)
+	
 	# Register the player at the lobby
 	var id = get_tree().get_rpc_sender_id()
 	print("[Network] Registering player {id}". format({"id":id}))
@@ -140,6 +145,12 @@ remote func register_player(info):
 	if my_player:
 		local_player = my_player
 
-	# Loads the other places
+	# Loads the other players
 	for player_id in players_info:
-		load_fighter( player_id, players_info[player_id] )
+		var new_fighter = load_fighter( player_id, players_info[player_id] )
+		if new_fighter:
+			print(players_info[player_id].spritesheet)
+			new_fighter.set_skin(players_info[player_id].spritesheet)
+			players_info[player_id].fighter = new_fighter
+			
+		

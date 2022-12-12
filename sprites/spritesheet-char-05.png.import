@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://import/generic-char2.png-e734947a1cf17b09cf5ec53314469bb9.stex"
+path="res://import/spritesheet-char-05.png-d7bee83c78a647c36900b51b4e17fdf7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/generic-char2.png"
-dest_files=[ "res://import/generic-char2.png-e734947a1cf17b09cf5ec53314469bb9.stex" ]
+source_file="res://sprites/spritesheet-char-05.png"
+dest_files=[ "res://import/spritesheet-char-05.png-d7bee83c78a647c36900b51b4e17fdf7.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
