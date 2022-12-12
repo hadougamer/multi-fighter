@@ -151,3 +151,11 @@ func shot():
 			bullet.global_position.x -= b_margin
 		else:
 			bullet.global_position.x += b_margin
+
+func set_skin( skin_name ):	
+	var skin_path = "res://sprites/{skin}.png".format(
+		{ "skin" : skin_name }
+	)
+	for animation in $sprite.frames.animations:
+		for frame in animation.frames:
+			frame.set_atlas(load(skin_path))

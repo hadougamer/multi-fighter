@@ -3,36 +3,36 @@
     "id": 1,
     "name": "Dwight",
     "avatar": "dwight.png",
-    "spritesheet": "path/to/my/spritesheet.png"
+    "spritesheet": "spritesheet-char-01"
   },
   {
     "id": 2,
     "name": "Face Troll",
     "avatar": "facetroll.png",
-    "spritesheet": "path/to/my/spritesheet.png"
+    "spritesheet": "spritesheet-char-02"
   },
   {
     "id": 3,
     "name": "Pepe The Frog",
     "avatar": "pepe.png",
-    "spritesheet": "path/to/my/spritesheet.png"
+    "spritesheet": "spritesheet-char-03"
   },
   {
     "id": 4,
     "name": "Fry",
     "avatar": "fry.png",
-    "spritesheet": "path/to/my/spritesheet.png"
+    "spritesheet": "spritesheet-char-04"
   },
   {
     "id": 5,
     "name": "He-man",
     "avatar": "heman.png",
-    "spritesheet": "path/to/my/spritesheet.png"
+    "spritesheet": "spritesheet-char-05"
   },
   {
     "id": 6,
     "name": "Sponge Bob",
     "avatar": "spongebob.jpeg",
-    "spritesheet": "path/to/my/spritesheet.png"
+    "spritesheet": "spritesheet-char-06"
   }
 ]
